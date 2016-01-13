@@ -34,6 +34,7 @@ public class MixpanelPlugin extends CordovaPlugin {
         RESET("reset"),
         SHOW_SURVEY("showSurvey"),
         TRACK("track"),
+        TIME_EVENT("timeEvent"),
 
 
         // PEOPLE API
@@ -98,6 +99,8 @@ public class MixpanelPlugin extends CordovaPlugin {
                 return handleReset(args, cbCtx);
             case SHOW_SURVEY:
                 return handleShowSurvey(args, cbCtx);
+            case TIME_EVENT:
+                return timeEvent(args, cbCtx);
             case TRACK:
                 return handleTrack(args, cbCtx);
             case PEOPLE_IDENTIFY:
@@ -205,6 +208,12 @@ public class MixpanelPlugin extends CordovaPlugin {
         return false;
     }
 
+    private boolean timeEvent(JSONArray args, final CallbackContext cbCtx) {
+        String event = args.optString(0, "");
+        mixpanel.timeEvent(event);
+        cbCtx.success();
+        return true;
+    }
 
     private boolean handleTrack(JSONArray args, final CallbackContext cbCtx) {
         String event = args.optString(0, "");

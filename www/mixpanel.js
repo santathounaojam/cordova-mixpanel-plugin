@@ -70,6 +70,13 @@ mixpanel.track = function(eventName, eventProperties, onSuccess, onFail) {
   exec(onSuccess, onFail, 'Mixpanel', 'track', [eventName, eventProperties]);
 };
 
+mixpanel.timeEvent = function(eventName, onSuccess, onFail) {
+  if (!eventName || typeof eventName != 'string') {
+    return onFail(errors.invalid('event', eventName));
+  }
+
+  exec(onSuccess, onFail, 'Mixpanel', 'timeEvent', [eventName]);
+};
 
 // PEOPLE API
 
